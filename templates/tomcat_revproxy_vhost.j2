@@ -40,9 +40,8 @@
 
 {% for app in tomcat_applications %}
   # {{ app.app_name }} tomcat app
-  ProxyPass /{{ app.rproxy_path }} http://localhost:{{ app.conn_port }}/{{ app.rproxy_path }}
+  ProxyPass /{{ app.rproxy_path }} http://localhost:{{ app.conn_port }}/{{ app.rproxy_path }} keepalive=on
   ProxyPassReverse /{{ app.rproxy_path }} http://localhost:{{ app.conn_port }}/{{ app.rproxy_path }}
-  ProxyTimeout 300
   <Location /{{ app.rproxy_path }}>
     Require all granted
   </Location>

@@ -123,6 +123,17 @@
     group: "{{ item.app_name }}"
   with_items: "{{ tomcat_applications }}"
 
+- name: set the Tomcat session timeout to a usefully huge number
+  lineinfile:
+    dest: "/usr/local/{{ item.app_name }}/conf/web.xml"
+    regexp: "<session-timeout>30</session-timeout>"
+    state: "present"
+    line: "<session-timeout>840</session-timeout>"
+    owner: "{{ item.app_name }}"
+    group: "{{ item.app_name }}"
+    mode: 0644
+  with_items: "{{ tomcat_applications }}"
+
 - name: Put in place the tomcat logroate configuration file
   template:
     src: "tomcat_logrotate.j2"
