@@ -65,10 +65,18 @@ For each CATALINA_BASE tomcat app:
 
   * `lvm_base_path` - defines the path where the logical volumes are managed by the operating system
 
-  * `apache_vhost_ssl` - if the apache vhost uses SSL, use this to instantiate the certificate files list
-    * `cert_file_path` - defines the path to the SSL certificate
-    * `cert_key_file_path` - defines the path to the SSL certificates private key
-    * `cert_chain_file_path` - defines the path to the intermediate certificate chain file
+Variables with default values that define if this deployment should use SSL
+For a local dev deployment, default values enable SSL and install self-signed certificates
+For a production install, defaults values are overriden by variables defined in host_vars
+  * `enable_ssl` - defines if this deloyment should use SSL (`yes` or `no` - default is `yes`)
+  * `ssl_cert_base_path` - defines the base path to the SSL certs and key
+  * `ssl_cert_file_path` - defines the path to the SSL certs
+  * `ssl_key_file_path` - defines the path to the SSL private key
+  * `ssl_files`
+      * `self_signed` - defines if the certificates are self-signed (`yes` or `no` - default is `yes`)
+      * `crt` - contains the contents of the SSL public certificate
+      * `interm` - contains the contents of the SSL intermediate chain certificate (only needed if using a trusted cert)
+      * `key` - contains the contents of the SSL private key
 
 
   Sample format for defining tomcat web apps:
