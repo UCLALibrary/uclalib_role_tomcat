@@ -1,4 +1,4 @@
-{% if apache_vhost_ssl is defined %}
+{% if enable_ssl == "yes" %}
 <VirtualHost *:80>
   ServerName {{ tomcat_server_name }}
 
@@ -51,14 +51,14 @@
 
   ########################################
 
-{% if apache_vhost_ssl is defined %}
+{% if enable_ssl == "yes" %}
+  # Protocol, CipherSuite, and OCSP config in /etc/httpd/conf.d/ssl.conf
   SSLEngine on
-  SSLProtocol all -SSLv2 -SSLv3
-  SSLCipherSuite    ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA
-  SSLHonorCipherOrder     on
-  SSLCertificateFile {{ apache_vhost_ssl.cert_file_path }}
-  SSLCertificateKeyFile {{ apache_vhost_ssl.cert_key_file_path }}
-  SSLCertificateChainFile {{ apache_vhost_ssl.cert_chain_file_path }}
+  SSLCertificateFile      {{ ssl_cert_file_path }}/{{ tomcat_server_name }}_cert.cer
+{% if ssl_files.self_signed == "no" %}
+  SSLCertificateChainFile {{ ssl_cert_file_path }}/{{ tomcat_server_name }}_interm.cer
+{% endif %}
+  SSLCertificateKeyFile   {{ ssl_key_file_path }}/{{ tomcat_server_name }}.key
 
   CustomLog /var/log/httpd/tomcatapps/ssl_request_log   ssl_combined
 {% endif %}
