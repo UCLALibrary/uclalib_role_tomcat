@@ -49,8 +49,8 @@ For each CATALINA_BASE tomcat app:
     * `shut_port`- port number to use for tomcat shutdown port in server.xml
     * `conn_port` - port number to use for tomcat connection port in server.xml
     * `rproxy_path` - path to configure the apache reverse proxy to use to access the tomcat app
-    * `proxy_nocanon` - if the `nocanon` keyword should be added to the ProxyPass directive in the vhost file (`yes` or `no`)
-        * this keyword instructs mod_proxy to pass the URL path "raw" to the backend - useful in situations where encoded slashes are used
+    * `proxypass_extra_params` - (optional) defines a list of extra parameters to append to the ProxyPass line in the tomcat vhost file
+        * examples include: `nocanon` or `keepalive=on` - separate multiple parameters with a single space all enclosed in quotes (e.g. `"nocanon keepalive=on"`)
 
   * `tomcat_server_name` - defines the FQDN for the server the tomcat apps will run on. This is used when creating the HTTPD vhost configuration
 
@@ -87,12 +87,11 @@ For a production install, defaults values are overriden by variables defined in 
       shut_port: 8006
       conn_port: 8081
       rproxy_path: path1
-      proxy_nocanon: no
     - app_name: app2
       shut_port: 8007
       conn_port: 8082
       rproxy_path: path2
-      proxy_nocanon: no
+      proxypass_extra_params: "nocanon"
   ```
 
   Example playbook file:
@@ -107,12 +106,11 @@ For a production install, defaults values are overriden by variables defined in 
           shut_port: 8006
           conn_port: 8081
           rproxy_path: path1
-          proxy_nocanon: no
         - app_name: app2
           shut_port: 8007
           conn_port: 8082
           rproxy_path: path2
-          proxy_nocanon: no
+          proxypass_extra_params: "nocanon"
       use_lvm: "yes"
 
     roles:
