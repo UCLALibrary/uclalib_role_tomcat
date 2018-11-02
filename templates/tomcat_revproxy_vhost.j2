@@ -40,7 +40,11 @@
 
 {% for app in tomcat_applications %}
   # {{ app.app_name }} tomcat app
+{% if app.proxypass_extra_params is defined %}
+  ProxyPass /{{ app.rproxy_path }} http://localhost:{{ app.conn_port }}/{{ app.rproxy_path }} {{ app.proxypass_extra_params }}
+{% else %}
   ProxyPass /{{ app.rproxy_path }} http://localhost:{{ app.conn_port }}/{{ app.rproxy_path }}
+{% endif %}
   ProxyPassReverse /{{ app.rproxy_path }} http://localhost:{{ app.conn_port }}/{{ app.rproxy_path }}
   ProxyTimeout 300
   <Location /{{ app.rproxy_path }}>

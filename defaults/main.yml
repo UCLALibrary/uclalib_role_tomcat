@@ -24,10 +24,12 @@ tomcat_applications:
     shut_port: 8006
     conn_port: 8081
     rproxy_path: path1
+    proxypass_extra_params: "nocanon keepalive=on"
   - app_name: app2
     shut_port: 8007
     conn_port: 8082
     rproxy_path: path2
+    proxypass_extra_params: "nocanon"
 
 # Server name to use in the Apache HTTPD reverse proxy vhost file
 tomcat_server_name: "{{ ansible_fqdn }}"
