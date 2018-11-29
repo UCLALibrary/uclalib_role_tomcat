@@ -52,7 +52,7 @@ use_lvm: yes
 # SSL Defaults - these are used for local dev environments
 # This are overriden by variable definitions in host_vars
 ############################################################
-enable_ssl: "yes"
+tomcat_enable_ssl: "yes"
 
 ssl_cert_base_path: "/etc/pki/tls"
 

@@ -71,7 +71,7 @@ For each CATALINA_BASE tomcat app:
 Variables with default values that define if this deployment should use SSL
 For a local dev deployment, default values enable SSL and install self-signed certificates
 For a production install, defaults values are overriden by variables defined in host_vars
-  * `enable_ssl` - defines if this deloyment should use SSL (`yes` or `no` - default is `yes`)
+  * `tomcat_enable_ssl` - defines if this deloyment should use SSL (`yes` or `no` - default is `yes`)
   * `ssl_cert_base_path` - defines the base path to the SSL certs and key
   * `ssl_cert_file_path` - defines the path to the SSL certs
   * `ssl_key_file_path` - defines the path to the SSL private key
