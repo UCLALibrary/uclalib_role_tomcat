@@ -1,4 +1,4 @@
-{% if enable_ssl == "yes" %}
+{% if tomcat_enable_ssl == "yes" %}
 <VirtualHost *:80>
   ServerName {{ tomcat_server_name }}
 
@@ -55,7 +55,7 @@
 
   ########################################
 
-{% if enable_ssl == "yes" %}
+{% if tomcat_enable_ssl == "yes" %}
   # Protocol, CipherSuite, and OCSP config in /etc/httpd/conf.d/ssl.conf
   SSLEngine on
   SSLCertificateFile      {{ ssl_cert_file_path }}/{{ tomcat_server_name }}_cert.cer

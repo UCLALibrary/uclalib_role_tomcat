@@ -136,7 +136,7 @@
 
 - name: Set-up SSL Certs and Keys
   include_tasks: ssl_cert_setup.yml
-  when: enable_ssl == "yes"
+  when: tomcat_enable_ssl == "yes"
 
 - name: Put in place the Apache HTTPD reverse proxy vhost configs for each tomcat app
   template:
