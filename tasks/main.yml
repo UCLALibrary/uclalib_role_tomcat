@@ -11,7 +11,7 @@
 
 - name: Download Tomcat into /usr/local directory
   get_url:
-    url: "http://archive.apache.org/dist/tomcat/tomcat-{{ tomcat_major_version }}/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz"
+    url: "{{ tomcat_download_url }}"
     dest: "/usr/local/apache-tomcat-{{ tomcat_version }}.tar.gz"
   when: tomcat_path.stat.exists == False
 

@@ -3,9 +3,9 @@
 tomcat_major_version: 7
 
 # Define the version of Apache Tomcat to download
-# Will obtain from this URL:
-# http://archive.apache.org/dist/tomcat/tomcat-{{ tomcat_major_version }}/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.zip
 tomcat_version: 7.0.67
+
+tomcat_download_url: "http://archive.apache.org/dist/tomcat/tomcat-{{ tomcat_major_version }}/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz"
 
 # This is a list defining all of the Tomcat apps to be created
 # The list provided her will be used for creating the following:
