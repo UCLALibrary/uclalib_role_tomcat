@@ -44,6 +44,8 @@ For each CATALINA_BASE tomcat app:
 
   * `tomcat_version` - defines the full version of tomcat to use (e.g. 7.0.67)
 
+  * `tomcat_download_url` - defines the URL to download Tomcat binaries
+
   * `tomcat_applications` - variable that instantiates the tomcat application list
     * `app_name` - name of tomcat web app (usually matches name of .war file)
     * `shut_port`- port number to use for tomcat shutdown port in server.xml
