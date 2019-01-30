@@ -81,8 +81,24 @@ For a production install, defaults values are overriden by variables defined in 
       * `interm` - contains the contents of the SSL intermediate chain certificate (only needed if using a trusted cert)
       * `key` - contains the contents of the SSL private key
 
+## Tomcat Download URL Note
 
-  Sample format for defining tomcat web apps:
+The default value for the `tomcat_download_url` variable is:
+
+`http://archive.apache.org/dist/tomcat/tomcat-{{ tomcat_major_version }}/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz`
+
+If you are affiliated with UCLA, you have the option of overriding this default url value with:
+
+`http://pkgs.library.ucla.edu/apache-tomcat/apache-tomcat-{{ tomcat_version }}.tar.gz`
+
+Versions of Tomcat available via the UCLA URL are:
+
+* `7.0.67`
+* `7.0.92`
+* `8.5.34`
+* `8.5.35`
+
+## Sample format for defining tomcat web apps:
   ```
   tomcat_applications:
     - app_name: app1
@@ -96,7 +112,7 @@ For a production install, defaults values are overriden by variables defined in 
       proxypass_extra_params: "nocanon"
   ```
 
-  Example playbook file:
+## Example playbook file:
 ```
   ---
   - name: uclalib_tomcat_param.yml
