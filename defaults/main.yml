@@ -41,13 +41,13 @@ tomcat_subdirs: [ conf, logs, temp, webapps, work ]
 default_webapps: [ docs, examples, host-manager, manager, ROOT ]
 
 # LVM Filesystem variables
-vg_name: vg_apps
+vg_name: "vg_apps"
 
-lv_size: 5G
+lv_size: "5G"
 
 lvm_base_path: "/dev/mapper/vg_apps"
 
-use_lvm: yes
+use_lvm: "no"
 
 # SSL Defaults - these are used for local dev environments
 # This are overriden by variable definitions in host_vars
