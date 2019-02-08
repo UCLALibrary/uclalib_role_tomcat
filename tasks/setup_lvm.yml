@@ -14,7 +14,7 @@
 - name: Create filesystem on the logical volumes
   filesystem:
     fstype: "{{ lvm_filesystem_type }}"
-    dev: "{{ lvm_base_path }}-lv_{{ item.app_name }}"
+    dev: "{{ lvm_base_path }}/lv_{{ item.app_name }}"
   with_items: "{{ tomcat_applications }}"
 
 - name: Update fstab and mount the filesystem
