@@ -49,6 +49,8 @@ lvm_base_path: "/dev/mapper/vg_apps"
 
 use_lvm: "no"
 
+lvm_filesystem_type: "xfs"
+
 # SSL Defaults - these are used for local dev environments
 # This are overriden by variable definitions in host_vars
 ############################################################
