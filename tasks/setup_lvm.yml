@@ -13,25 +13,17 @@
 
 - name: Create filesystem on the logical volumes
   filesystem:
-    fstype: "ext4"
+    fstype: "{{ lvm_filesystem_type }}"
     dev: "{{ lvm_base_path }}-lv_{{ item.app_name }}"
   with_items: "{{ tomcat_applications }}"
 
-- name: Update /etc/fstab with LVM mount point
+- name: Update fstab and mount the filesystem
   mount:
-    name: "/usr/local/{{ item.app_name }}"
+    path: "/usr/local/{{ item.app_name }}"
     src: "{{ lvm_base_path }}-lv_{{ item.app_name }}"
-    fstype: "ext4"
+    fstype: "{{ lvm_filesystem_type }}"
     opts: "defaults"
     dump: "1"
     passno: "2"
-    state: "present"
-  with_items: "{{ tomcat_applications }}"
-
-- name: Mount the LVM filesystems
-  mount:
-    name: "/usr/local/{{ item.app_name }}"
-    src: "{{ lvm_base_path }}-lv_{{ item.app_name }}"
-    fstype: "ext4"
     state: "mounted"
   with_items: "{{ tomcat_applications }}"

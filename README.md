@@ -68,6 +68,8 @@ For each CATALINA_BASE tomcat app:
 
   * `lvm_base_path` - defines the path where the logical volumes are managed by the operating system
 
+  * `lvm_filesystem_type` - defines the filesystem type to create when provisioning the lvm mount point
+
 Variables with default values that define if this deployment should use SSL
 For a local dev deployment, default values enable SSL and install self-signed certificates
 For a production install, defaults values are overriden by variables defined in host_vars
