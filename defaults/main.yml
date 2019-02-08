@@ -45,7 +45,7 @@ vg_name: "vg_apps"
 
 lv_size: "5G"
 
-lvm_base_path: "/dev/mapper/vg_apps"
+lvm_base_path: "/dev/{{ vg_name }}"
 
 use_lvm: "no"
 
