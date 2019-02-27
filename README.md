@@ -97,9 +97,11 @@ Versions of Tomcat available via the UCLA URL are:
 
 * `7.0.67`
 * `7.0.92`
+* `7.0.93`
 * `8.5.34`
 * `8.5.35`
 * `8.5.37`
+* `8.5.38`
 
 ## Sample format for defining tomcat web apps:
   ```
