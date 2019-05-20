@@ -134,6 +134,13 @@
     mode: 0755
     state: "directory"
 
+- name: Add entry in httpd logrotate file for tomcat apps
+  lineinfile:
+    path: "/etc/logrotate.d/httpd"
+    line: "/var/log/httpd/tomcatapps/*log"
+    insertbefore: "BOF"
+    state: "present"
+
 - name: Set-up SSL Certs and Keys
   include_tasks: ssl_cert_setup.yml
   when: tomcat_enable_ssl == "yes"
