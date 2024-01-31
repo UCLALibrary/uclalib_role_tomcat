@@ -40,7 +40,7 @@ For each CATALINA_BASE tomcat app:
 
 ## Variables
 
-  * `tomcat_major_version` - defines the major version of Tomcat to use (e.g. 6, 7, 8, etc.)
+  * `tomcat_major_version` - defines the major version of Tomcat to use (e.g. 7, 8, 9 etc.)
 
   * `tomcat_version` - defines the full version of tomcat to use (e.g. 7.0.67)
 
@@ -71,17 +71,11 @@ For each CATALINA_BASE tomcat app:
   * `lvm_filesystem_type` - defines the filesystem type to create when provisioning the lvm mount point
 
 Variables with default values that define if this deployment should use SSL
-For a local dev deployment, default values enable SSL and install self-signed certificates
-For a production install, defaults values are overriden by variables defined in host_vars
+NOTE: The use of SSL assumes certificates are issued/installed using certbot - reference [uclalib_role_certbot](https://github.com/UCLALibrary/uclalib_role_certbot)
   * `tomcat_enable_ssl` - defines if this deloyment should use SSL (`yes` or `no` - default is `yes`)
-  * `ssl_cert_base_path` - defines the base path to the SSL certs and key
-  * `ssl_cert_file_path` - defines the path to the SSL certs
-  * `ssl_key_file_path` - defines the path to the SSL private key
-  * `ssl_files`
-      * `self_signed` - defines if the certificates are self-signed (`yes` or `no` - default is `yes`)
-      * `crt` - contains the contents of the SSL public certificate
-      * `interm` - contains the contents of the SSL intermediate chain certificate (only needed if using a trusted cert)
-      * `key` - contains the contents of the SSL private key
+  * `ssl_certificate_name` - defines the name of the SSL certificate issued by certbot
+  * `ssl_cert_base_path` - defines the base path to the SSL where all certificates are stored
+  * `ssl_cert_file_path` - defines the path to the certificates for `ssl_certificate_name`
 
 ## Tomcat Download URL Note
 
@@ -105,6 +99,7 @@ Versions of Tomcat available via the UCLA URL are:
 * `8.5.38`
 * `8.5.41`
 * `8.5.53`
+* `9.0.85`
 
 ## Sample format for defining tomcat web apps:
   ```
