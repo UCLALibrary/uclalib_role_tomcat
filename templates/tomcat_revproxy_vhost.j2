@@ -58,11 +58,9 @@
 {% if tomcat_enable_ssl == "yes" %}
   # Protocol, CipherSuite, and OCSP config in /etc/httpd/conf.d/ssl.conf
   SSLEngine on
-  SSLCertificateFile      {{ ssl_cert_file_path }}/{{ tomcat_server_name }}_cert.cer
-{% if ssl_files.self_signed == "no" %}
-  SSLCertificateChainFile {{ ssl_cert_file_path }}/{{ tomcat_server_name }}_interm.cer
-{% endif %}
-  SSLCertificateKeyFile   {{ ssl_key_file_path }}/{{ tomcat_server_name }}.key
+  SSLCertificateFile      {{ ssl_cert_file_path }}/cert.pem
+  SSLCertificateChainFile {{ ssl_cert_file_path }}/chain.pem
+  SSLCertificateKeyFile   {{ ssl_key_file_path }}/privkey.pem
 
   CustomLog /var/log/httpd/tomcatapps/ssl_request_log   ssl_combined
 {% endif %}

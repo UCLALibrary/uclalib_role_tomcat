@@ -1,0 +1,15 @@
+[Unit]
+Description={{ item.app_name | upper }} Apache Tomcat Web Application Container
+After=network.target
+
+[Service]
+Type=forking
+EnvironmentFile="/etc/sysconfig/{{ item.app_name }}"
+ExecStart=/usr/local/tomcat{{ tomcat_major_version }}/bin/startup.sh
+ExecStop=/usr/local/tomcat{{ tomcat_major_version }}/bin/shutdown.sh
+PIDFile=/usr/local/{{ item.app_name }}/work/catalina.pid
+User={{ item.app_name }}
+Group={{ item.app_name }}
+
+[Install]
+WantedBy=multi-user.target

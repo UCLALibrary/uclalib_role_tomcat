@@ -51,7 +51,7 @@
   with_items: "{{ tomcat_applications }}"
 
 - name: Include tasks to set-up Logical Volume Filesystems
-  include: setup_lvm.yml
+  include_tasks: setup_lvm.yml
   when: use_lvm == "yes"
 
 - name: Create the CATALINA_BASE paths for each Tomcat application and set ownership
@@ -96,24 +96,19 @@
     state: "directory"
   with_items: "{{ tomcat_applications }}"
 
-- name: Put in place the tomcat init script
-  copy:
-    src: "tomcat_init"
-    dest: "/etc/init.d/tomcat"
-    mode: 0755
-
-- name: Create init script symbolic links for each app
-  file:
-    src: "/etc/init.d/tomcat"
-    dest: "/etc/init.d/{{ item.app_name }}"
-    state: "link"
-  with_items: "{{ tomcat_applications }}"
-
 - name: Put in place the tomcat app environment variables file
   template:
     src: "tomcat_env.j2"
     dest: "/etc/sysconfig/{{ item.app_name }}"
   with_items: "{{ tomcat_applications }}"
+
+- name: Put in place systemd unit files for each app
+  template:
+    src: "tomcat_systemd_unit.j2"
+    dest: "/etc/systemd/system/{{ item.app_name }}.service"
+  with_items: "{{ tomcat_applications }}"
+  notify:
+    - systemd reload
 
 - name: Put in place the tomcat app server.xml file
   template:
@@ -140,10 +135,6 @@
     line: "/var/log/httpd/tomcatapps/*log"
     insertbefore: "BOF"
     state: "present"
-
-- name: Set-up SSL Certs and Keys
-  include_tasks: ssl_cert_setup.yml
-  when: tomcat_enable_ssl == "yes"
 
 - name: Put in place the Apache HTTPD reverse proxy vhost configs for each tomcat app
   template:

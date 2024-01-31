@@ -1,2 +1,8 @@
 - name: restart httpd
-  service: name=httpd state=restarted
+  service: 
+    name: "httpd" 
+    state: "restarted"
+
+- name: systemd reload 
+  systemd:
+    daemon_reload: "yes"
