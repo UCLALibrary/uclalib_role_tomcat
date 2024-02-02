@@ -4,7 +4,8 @@ After=network.target
 
 [Service]
 Type=forking
-EnvironmentFile="/etc/sysconfig/{{ item.app_name }}"
+Environment=CATALINA_HOME=/usr/local/tomcat{{ tomcat_major_version }}
+Environment=CATALINA_BASE=/usr/local/{{ item.app_name }}
 ExecStart=/usr/local/tomcat{{ tomcat_major_version }}/bin/startup.sh
 ExecStop=/usr/local/tomcat{{ tomcat_major_version }}/bin/shutdown.sh
 PIDFile=/usr/local/{{ item.app_name }}/work/catalina.pid
