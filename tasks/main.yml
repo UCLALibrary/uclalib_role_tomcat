@@ -79,6 +79,14 @@
     state: "directory"
   with_items: "{{ tomcat_applications }}"
 
+- name: Create empty bin directory in CATALINA_BASE to store app-specific setenv.sh
+  file:
+    path: "/usr/local/{{ item.app_name }}/bin"
+    owner: "{{ item.app_name }}"
+    group: "{{ item.app_name }}"
+    state: "directory"
+  with_items: "{{ tomcat_applications }}"
+
 - name: Remove default Tomcat applications from the webapps subdir
   file:
     path: "/usr/local/{{ item[0].app_name }}/webapps/{{ item[1] }}"
@@ -98,8 +106,11 @@
 
 - name: Put in place the tomcat app environment variables file
   template:
-    src: "tomcat_env.j2"
-    dest: "/etc/sysconfig/{{ item.app_name }}"
+    src: "tomcat_setenv.j2"
+    dest: "/usr/local/{{ item.app_name }}/bin/setenv.sh"
+    owner: "{{ item.app_name }}"
+    group: "{{ item.app_name }}"
+    mode: "0750"
   with_items: "{{ tomcat_applications }}"
 
 - name: Put in place systemd unit files for each app
@@ -107,8 +118,10 @@
     src: "tomcat_systemd_unit.j2"
     dest: "/etc/systemd/system/{{ item.app_name }}.service"
   with_items: "{{ tomcat_applications }}"
-  notify:
-    - systemd reload
+
+- name: SystemD daemon reload
+  systemd:
+    daemon_reload: "yes"
 
 - name: Put in place the tomcat app server.xml file
   template:
