@@ -60,7 +60,7 @@
   SSLEngine on
   SSLCertificateFile      {{ ssl_cert_file_path }}/cert.pem
   SSLCertificateChainFile {{ ssl_cert_file_path }}/chain.pem
-  SSLCertificateKeyFile   {{ ssl_key_file_path }}/privkey.pem
+  SSLCertificateKeyFile   {{ ssl_cert_file_path }}/privkey.pem
 
   CustomLog /var/log/httpd/tomcatapps/ssl_request_log   ssl_combined
 {% endif %}
